@@ -4,7 +4,7 @@ function Layer:randomize(s) -- size
   local Vector = require "util/vector"
   local layer = {
     w = {}, -- weights
-    b = {}, -- bias
+    b = {}, -- biases
     x = {}, -- sigmoid neurons
   }
   layer.w = Vector:make()
@@ -22,6 +22,21 @@ function Layer:randomize(s) -- size
     -- "x"s not yet put
     for n = 1, s do
       self.x.put(math.sigmoid(Vector:dot(w, x) + b))
+    end
+  end
+  -- meant for i.e. input layer
+  function layer:set_out(x)
+    for n = 1, s do
+      self.x.put(x)
+    end
+  end
+  function layer:mutate(p, m) -- chance, mutate range
+    for n = 1, self.w do
+      if math.random(0, 100) < p then
+        local m_range = 10
+        self.w[n] = self.w[n] + math.random(-m_range, m_range) -- mutate weight
+        self.b[n] = self.b[n] + math.random(-m_range, m_range) -- mutate bias
+      end
     end
   end
   return layer
