@@ -25,17 +25,16 @@ function Layer:randomize(s) -- size
     end
   end
   -- meant for i.e. input layer
-  function layer:set_out(x)
+  function layer:set_output(x)
     for n = 1, s do
-      self.x.put(x)
+      self.x[n].put(x[n])
     end
   end
   function layer:mutate(p, m) -- chance, mutate range
     for n = 1, self.w do
       if math.random(0, 100) < p then
-        local m_range = 10
-        self.w[n] = self.w[n] + math.random(-m_range, m_range) -- mutate weight
-        self.b[n] = self.b[n] + math.random(-m_range, m_range) -- mutate bias
+        self.w[n] = self.w[n] + math.random(-m, m) -- mutate weight
+        self.b[n] = self.b[n] + math.random(-m, m) -- mutate bias
       end
     end
   end
