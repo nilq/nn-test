@@ -14,7 +14,6 @@ function love.load()
     if seen and seen[obj] then
       return seen[obj]
     end
-
     -- New table; mark it as seen an copy recursively.
     local s = seen or {}
     local res = setmetatable({}, getmetatable(obj))
