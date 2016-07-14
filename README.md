@@ -3,6 +3,6 @@ Artificially living agents equipped with a network of sigmoid neurons, fighting 
 
 #using
 
-One will need LÖVE/Love2D, then run using:
+One will need LÖVE/Love2D(0.9.1), then run using:
 
 ``` love wildfire ```
