@@ -1,13 +1,8 @@
 # wildfire
-Yet another fucked, interpreted programming language you never asked for
+Artificially living agents equipped with a network of sigmoid neurons, fighting eachother and gathering food.
 
-#syntax ideas
-```
-variable foo = 5
-forever if foo > -5 then
-  foo = foo - 1
-  repeat 2 times
-    variable bar = -foo
-  end
-end
-```
+#using
+
+One will need LÖVE/Love2D, then run using:
+
+``` love wildfire ```
