@@ -44,6 +44,18 @@ function love.load()
     table.insert(agents, agent)
   end
 
+  foods = {}
+
+  for n = 1, 75 do
+    local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
+    local a = math.random(2, 10)
+    local food = {
+      x = x, y = y,
+      a = a,
+    }
+    table.insert(foods, food)
+  end
+
   love.graphics.setBackgroundColor(220, 220, 220)
 end
 
@@ -54,6 +66,10 @@ function love.update(dt)
 end
 
 function love.draw()
+  for i, v in ipairs(foods) do
+    love.graphics.setColor(235, 201, 49)
+    love.graphics.circle("fill", v.x, v.y, v.a)
+  end
   for i, v in ipairs(agents) do
     v:draw()
   end
