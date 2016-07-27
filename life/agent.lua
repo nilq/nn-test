@@ -6,6 +6,8 @@ function Agent:make(x, y)
     x = x, y = y,
     dx = 0, dy = 0,
     r = 0,
+    -- health
+    food = 100,
   }
   function agent:randomize()
     local Network = require "intelligence/network"
@@ -21,6 +23,9 @@ function Agent:make(x, y)
 
     self.x = self.x + math.cos(self.r) * s
     self.y = self.y + math.sin(self.r) * s
+
+    self.x = self.x % love.graphics.getWidth()
+    self.y = self.y % love.graphics.getHeight()
   end
   function agent:draw()
     love.graphics.setColor(255, 255, 0)

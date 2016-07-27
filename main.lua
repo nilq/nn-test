@@ -34,16 +34,27 @@ function love.load()
   math.randomseed(os.time())
 
   local Agent = require "life/agent"
-  agent = Agent:make(100, 100)
-  agent:randomize()
 
-  love.graphics.setBackgroundColor(255, 255, 255)
+  agents = {}
+
+  for n = 1, 25 do
+    local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
+    local agent = Agent:make(x, y)
+    agent:randomize()
+    table.insert(agents, agent)
+  end
+
+  love.graphics.setBackgroundColor(220, 220, 220)
 end
 
 function love.update(dt)
-  agent:update(dt)
+  for i, v in ipairs(agents) do
+    v:update(dt)
+  end
 end
 
 function love.draw()
-  agent:draw()
+  for i, v in ipairs(agents) do
+    v:draw()
+  end
 end
