@@ -14,8 +14,8 @@ function Layer:make(size)
   function layer:randomize(last)
     for n = 1, #self.w do
       for o = 1, #last.x do
-        self.w[n][o] = math.random(-100, 100)/100
-        self.b[n][o] = math.random(-100, 100)/100
+        self.w[n][o] = math.random(-100, 100) / 100
+        self.b[n][o] = math.random(-100, 100) / 100
       end
     end
   end
