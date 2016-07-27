@@ -4,10 +4,8 @@ end
 function math.dotn(a, b) -- #a <=> #b
   local dot = 0
   for n = 1, #a do
-    print(a[n], b[n])
     dot = dot + a[n] * b[n]
   end
-  print "\n"
   return dot
 end
 function math.sum(list)
@@ -35,25 +33,17 @@ end
 function love.load()
   math.randomseed(os.time())
 
-  local Network = require "intelligence/network"
-  local net = Network:make(3, 5)
+  local Agent = require "life/agent"
+  agent = Agent:make(100, 100)
+  agent:randomize()
 
-  net:randomize()
-
-  local inputs = {
-    [1] = 0.5,
-    [2] = 128,
-    [3] = 15.95,
-  }
-
-  local out = net:pass(inputs)
-  print(out:concat())
+  love.graphics.setBackgroundColor(255, 255, 255)
 end
 
 function love.update(dt)
-
+  agent:update(dt)
 end
 
 function love.draw()
-
+  agent:draw()
 end

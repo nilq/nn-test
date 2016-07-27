@@ -9,13 +9,12 @@ function Network:make(inp, out)
   function network:randomize()
     local Layer = require "intelligence/layer"
     self.input = Layer:make(inp)
-    print("input: " .. #self.input.w)
     for n = 1, 3 do
-      self.hiddens[#self.hiddens + 1] = Layer:make(4)
-      if n==1 then
+      self.hiddens[#self.hiddens + 1] = Layer:make(2)
+      if n == 1 then
         self.hiddens[n]:randomize(self.input)
       else
-        self.hiddens[n]:randomize(self.hiddens[n-1])
+        self.hiddens[n]:randomize(self.hiddens[n - 1])
       end
     end
     self.output = Layer:make(out)
@@ -31,7 +30,7 @@ function Network:make(inp, out)
       end
     end
     self.output:calculate(self.hiddens[#self.hiddens])
-    return self.output
+    return self.output.x
   end
   function network:copy(other)
     self = table.copy_recursive(other)
