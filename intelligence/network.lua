@@ -9,13 +9,17 @@ function Network:make(inp, out)
   function network:randomize()
     local Layer = require "intelligence/layer"
     self.input = Layer:make(inp)
-    self.input:randomize()
+    print("input: " .. #self.input.w)
     for n = 1, 3 do
       self.hiddens[#self.hiddens + 1] = Layer:make(4)
-      self.hiddens[n]:randomize()
+      if n==1 then
+        self.hiddens[n]:randomize(self.input)
+      else
+        self.hiddens[n]:randomize(self.hiddens[n-1])
+      end
     end
     self.output = Layer:make(out)
-    self.output:randomize()
+    self.output:randomize(self.hiddens[#self.hiddens])
   end
   function network:pass(inputs)
     self.input:set(inputs)

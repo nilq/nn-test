@@ -7,8 +7,15 @@ function math.dotn(a, b) -- #a <=> #b
     print(a[n], b[n])
     dot = dot + a[n] * b[n]
   end
-  print("\n")
+  print "\n"
   return dot
+end
+function math.sum(list)
+  local sum = 0
+  for n = 1, #list do
+    sum = sum + list[n]
+  end
+  return sum
 end
 function table.copy_recursive(obj, seen)
   if type(obj) ~= "table" then

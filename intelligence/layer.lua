@@ -5,11 +5,18 @@ function Layer:make(size)
     x = {}, -- values
     b = {}, -- biases
   }
+  for n = 1, size do
+    layer.x[n] = 0
+    layer.w[n] = {}
+    layer.b[n] = {}
+  end
   -- randomize weights and biases
-  function layer:randomize()
-    for n = 1, size do
-      self.w[#self.w + 1] = math.random(-100, 100)/100
-      self.b[#self.b + 1] = math.random(-100, 100)/100
+  function layer:randomize(last)
+    for n = 1, #self.w do
+      for o = 1, #last.x do
+        self.w[n][o] = math.random(-100, 100)/100
+        self.b[n][o] = math.random(-100, 100)/100
+      end
     end
   end
   -- takes layer and calculates
@@ -17,7 +24,7 @@ function Layer:make(size)
     for n = 1, #last.x do
       -- sigmoid("weights" dot "inputs" + "bias")
       self.x[n] = math.sigmoid(
-        math.dotn(last.w, last.x) + last.b[n]
+        math.dotn(self.w[n], last.x) + math.sum(self.b[n])
       )
     end
   end
@@ -29,8 +36,10 @@ function Layer:make(size)
   end
   function layer:mutate(min, max)
     for n = 1, #self.w do
-      self.w[n] = self.w[n] + math.random(min * 100, max * 100) / 100
-      self.b[n] = self.b[n] + math.random(min * 100, max * 100) / 100
+      for o = 1, #self.w[1] do
+        self.w[n][o] = self.w[n][o] + math.random(min * 100, max * 100) / 100
+        self.b[n][o] = self.b[n][o] + math.random(min * 100, max * 100) / 100
+      end
     end
   end
   function layer:concat()
