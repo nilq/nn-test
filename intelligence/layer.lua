@@ -16,7 +16,6 @@ function Layer:make(size)
   function layer:calculate(last)
     for n = 1, #last.x do
       -- sigmoid("weights" dot "inputs" + "bias")
-      print(math.dotn(last.w, last.x) + last.b[n])
       self.x[n] = math.sigmoid(
         math.dotn(last.w, last.x) + last.b[n]
       )

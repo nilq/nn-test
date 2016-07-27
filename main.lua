@@ -4,8 +4,10 @@ end
 function math.dotn(a, b) -- #a <=> #b
   local dot = 0
   for n = 1, #a do
+    print(a[n], b[n])
     dot = dot + a[n] * b[n]
   end
+  print("\n")
   return dot
 end
 function table.copy_recursive(obj, seen)

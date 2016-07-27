@@ -11,7 +11,7 @@ function Network:make(inp, out)
     self.input = Layer:make(inp)
     self.input:randomize()
     for n = 1, 3 do
-      self.hiddens[#self.hiddens + 1] = Layer:make(15)
+      self.hiddens[#self.hiddens + 1] = Layer:make(4)
       self.hiddens[n]:randomize()
     end
     self.output = Layer:make(out)
