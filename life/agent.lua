@@ -15,7 +15,13 @@ function Agent:make(x, y)
     self.network:randomize()
   end
   function agent:update(dt)
-    local response = self.network:pass({[1]=os.time(), [2]=1})
+
+    for i,v in food do
+      local Foodsmell = 0
+      Foodsmell = Foodsmell + 1/math.magnitude(self.x, self.y, food.x, food.y)
+    end
+
+    local response = self.network:pass({[1]=os.time(), [2]=Foodsmell})
     local t1, t2 = response[1], response[2]
     local s = response[3]
 
