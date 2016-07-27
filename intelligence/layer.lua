@@ -12,8 +12,8 @@ function Layer:make(size)
   end
   -- randomize weights and biases
   function layer:randomize(last)
-    for n = 1, #self.w do
-      for o = 1, #last.x do
+    for n = 1, #self.x do --amount of neuron
+      for o = 1, #last.x do --amount of inputs
         self.w[n][o] = math.random(-100, 100) / 100
         self.b[n][o] = math.random(-100, 100) / 100
       end
@@ -21,7 +21,7 @@ function Layer:make(size)
   end
   -- takes layer and calculates
   function layer:calculate(last)
-    for n = 1, #last.x do
+    for n = 1, #self.x do --for every neuron in this layer
       -- sigmoid("weights" dot "inputs" + "bias")
       self.x[n] = math.sigmoid(
         math.dotn(self.w[n], last.x) + math.sum(self.b[n])
