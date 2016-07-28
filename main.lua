@@ -28,7 +28,7 @@ function math.clamp(x, min, max)
   return x
 end
 
-function math.circlePoint (x0, y0, r, x1 ,y1)
+function math.circle_point (x0, y0, r, x1 ,y1)
   return r>math.magnitude(x0, y0, x1 ,y1)
 end
 
