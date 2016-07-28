@@ -51,6 +51,14 @@ function Agent:make(x, y)
     self.y = self.y % love.graphics.getHeight()
 
     self.food = self.food - 2 * dt * s
+
+    if self:health() >= 100 then
+      for i, v in ipairs(agents) do
+        if v == self then
+          table.remove(agents, i)
+        end
+      end
+    end
   end
   function agent:draw()
     love.graphics.setColor(0, 0, 0)
