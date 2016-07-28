@@ -40,7 +40,7 @@ function Agent:make(x, y)
       self.foodSmellR = self.foodSmellR + 1/math.magnitude(self.feelerR.x, self.feelerR.y, v.x, v.y)
       self.foodSmellL = self.foodSmellL + 1/math.magnitude(self.feelerL.x, self.feelerL.y, v.x, v.y)
 
-      if math.circlePoint(self.x, self.y, self.radius) then
+      if math.circlePoint(self.x, self.y, self.radius, v.x, v.y) then
         self.food = self.food + v.a
         table.remove(foods, i)
       end
