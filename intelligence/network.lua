@@ -21,6 +21,9 @@ function Network:make(inp, out)
     self.output:randomize(self.hiddens[#self.hiddens])
   end
   function network:pass(inputs)
+    if #inputs~=inp then
+      error("nil inputs or incorect amount stated.")
+    end
     self.input:set(inputs)
     for n = 1, #self.hiddens do
       if n == 1 then
