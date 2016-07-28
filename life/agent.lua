@@ -16,7 +16,7 @@ function Agent:make(x, y)
   end
   function agent:randomize()
     local Network = require "intelligence/network"
-    self.network = Network:make(3, 3) --(input, output)
+    self.network = Network:make(4, 3) --(input, output)
     self.network:randomize()
 
     self.color.r = math.random(0, 255)
@@ -54,7 +54,7 @@ function Agent:make(x, y)
       end
     end
 
-    local response = self.network:pass({[1]=self.foodSmellR, [2]=self.foodSmellL, [3]=self:health()})
+    local response = self.network:pass({[1]=self.foodSmellR, [2]=self.foodSmellL, [3]=self:health(), [4]=self.food})
     local t1, t2 = response[1], response[2]
     local s = response[3]
 

@@ -54,12 +54,13 @@ function love.load()
 
   local Agent = require "life/agent"
 
-  food_timer = 2
-  timer = 0
+  food_time  = 2
+  food_timer  = 0
+
   agents = {}
   foods = {}
 
-  for n=1, 10 do
+  for n = 1, 10 do
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
     local a = math.random(5, 10)
     local food = {
@@ -72,6 +73,7 @@ function love.load()
   for n = 1, 25 do
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
     local agent = Agent:make(x, y)
+
     agent:randomize()
     table.insert(agents, agent)
   end
@@ -83,15 +85,20 @@ function love.update(dt)
   for i, v in ipairs(agents) do
     v:update(dt, foods)
   end
-  timer = timer + dt
-  while food_timer<timer do
-    timer = timer - food_timer
+
+  food_timer = food_timer + dt
+
+  if food_time < food_timer then
+    food_timer = food_timer - food_time
+
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
     local a = math.random(5, 10)
+
     local food = {
       x = x, y = y,
       a = a,
     }
+
     table.insert(foods, food)
   end
 end
