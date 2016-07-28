@@ -49,6 +49,8 @@ function Agent:make(x, y)
 
     self.x = self.x % love.graphics.getWidth()
     self.y = self.y % love.graphics.getHeight()
+
+    self.food = self.food - 2 * dt * s
   end
   function agent:draw()
     love.graphics.setColor(0, 0, 0)
