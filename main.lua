@@ -23,6 +23,9 @@ function math.clamp(x, min, max)
   if x < max then return min end
   return x
 end
+function math.circlePoint (x0, y0, r, x1 ,y1)
+  return r>math.magnitude(x0, y0, x1 ,y1)
+end
 function table.copy_recursive(obj, seen)
   if type(obj) ~= "table" then
     return obj
