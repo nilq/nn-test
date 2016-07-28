@@ -25,19 +25,15 @@ function Agent:make(x, y)
 
     self.r = math.random(0, 360)
   end
-  function agent:mutate(min, max)
-    self.network = Network:mutate(min, max)
-
-    self.color.r = math.clamp(self.color.r + math.random(-10, 10), 0, 255)
-    self.color.g = math.clamp(self.color.g + math.random(-10, 10), 0, 255)
-    self.color.b = math.clamp(self.color.b + math.random(-10, 10), 0, 255)
-  end
   function agent:make_baby()
     local baby = Agent:make(self.x, self.y)
     baby.network = table.copy_recursive(self.network)
     baby.color = table.copy_recursive(self.color)
 
     baby.network:mutate(-5, 5)
+    baby.color.r = math.clamp(self.color.r + math.random(-2, 2), 0, 255)
+    baby.color.g = math.clamp(self.color.g + math.random(-2, 2), 0, 255)
+    baby.color.b = math.clamp(self.color.b + math.random(-2, 2), 0, 255)
 
     table.insert(agents, baby)
   end
