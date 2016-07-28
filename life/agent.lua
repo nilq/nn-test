@@ -19,14 +19,14 @@ function Agent:make(x, y)
     self.color.g = math.random(0, 255)
     self.color.b = math.random(0, 255)
   end
-  function agent:update(dt)
+  function agent:update(dt, foods)
 
-    for i,v in food do
-      local Foodsmell = 0
-      Foodsmell = Foodsmell + 1/math.magnitude(self.x, self.y, food.x, food.y)
+    self.foodSmell = 0
+    for i,v in ipairs(foods) do
+      self.foodSmell = self.foodSmell + 1/math.magnitude(self.x, self.y, v.x, v.y)
     end
 
-    local response = self.network:pass({[1]=os.time(), [2]=Foodsmell})
+    local response = self.network:pass({[1]=foodSmell, [2]=20})
     local t1, t2 = response[1], response[2]
     local s = response[3]
 

@@ -15,6 +15,9 @@ function math.sum(list)
   end
   return sum
 end
+function math.magnitude(x0, y0, x1, y1)
+  return math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0))
+end
 function table.copy_recursive(obj, seen)
   if type(obj) ~= "table" then
     return obj
@@ -61,7 +64,7 @@ end
 
 function love.update(dt)
   for i, v in ipairs(agents) do
-    v:update(dt)
+    v:update(dt, foods)
   end
 end
 
