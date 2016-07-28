@@ -24,7 +24,6 @@ function Agent:make(x, y)
     self.color.b = math.random(0, 255)
   end
   function agent:mutate(min, max)
-    local Network = require "intelligence/network"
     self.network = Network:mutate(min, max)
 
     self.color.r = math.clamp(self.color.r + math.random(-10, 10), 0, 255)
@@ -67,7 +66,7 @@ function Agent:make(x, y)
   function agent:draw()
     self.feelerR = {x = self.x+math.cos(self.r + 0.5) * 30, y = self.y + math.sin(self.r + 0.5) * 30}
     self.feelerL = {x = self.x+math.cos(self.r - 0.5) * 30, y = self.y + math.sin(self.r - 0.5) * 30}
-    
+
     love.graphics.setColor(0, 0, 0)
     love.graphics.line(self.x, self.y, self.feelerR.x, self.feelerR.y)
     love.graphics.line(self.x, self.y, self.feelerL.x, self.feelerL.y)
