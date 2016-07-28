@@ -76,6 +76,9 @@ function Agent:make(x, y)
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.circle("line", self.x, self.y, 10)
+
+    love.graphics.setColor(255, 0, 0)
+    love.graphics.rectangle("fill", self.x - 20, self.y - 15, self.food/2.5, 4)
   end
   return agent
 end
