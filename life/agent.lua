@@ -41,7 +41,7 @@ function Agent:make(x, y)
       self.foodSmellL = self.foodSmellL + 1/math.magnitude(self.feelerL.x, self.feelerL.y, v.x, v.y)
 
       if math.circlePoint(self.x, self.y, self.radius) then
-        --add health here
+        self.food = self.food + v.a
         table.remove(foods, i)
       end
     end
