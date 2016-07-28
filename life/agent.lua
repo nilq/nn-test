@@ -60,8 +60,8 @@ function Agent:make(x, y)
 
     self.r = self.r + (t1 - t2) * dt
 
-    self.x = self.x + math.cos(self.r) * s
-    self.y = self.y + math.sin(self.r) * s
+    self.x = self.x + math.cos(self.r) * s * dt
+    self.y = self.y + math.sin(self.r) * s * dt
 
     self.x = self.x % love.graphics.getWidth()
     self.y = self.y % love.graphics.getHeight()
