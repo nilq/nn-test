@@ -22,6 +22,8 @@ function Agent:make(x, y)
     self.color.r = math.random(0, 255)
     self.color.g = math.random(0, 255)
     self.color.b = math.random(0, 255)
+
+    self.r = math.random(0, 360)
   end
   function agent:mutate(min, max)
     self.network = Network:mutate(min, max)
@@ -41,7 +43,7 @@ function Agent:make(x, y)
       self.foodSmellL = self.foodSmellL + 1/math.magnitude(self.feelerL.x, self.feelerL.y, v.x, v.y)
 
       if math.circlePoint(self.x, self.y, self.radius, v.x, v.y) then
-        self.food = self.food + v.a
+        self.food = self.food + v.a * 2
         table.remove(foods, i)
       end
     end
