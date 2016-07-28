@@ -5,7 +5,7 @@ function Agent:make(x, y)
     -- movement
     x = x, y = y,
     dx = 0, dy = 0,
-    r = 0,
+    r = 0, radius = 10,
     -- kinda unique
     food = 100,
     color = {},
@@ -39,6 +39,11 @@ function Agent:make(x, y)
     for i,v in ipairs(foods) do
       self.foodSmellR = self.foodSmellR + 1/math.magnitude(self.feelerR.x, self.feelerR.y, v.x, v.y)
       self.foodSmellL = self.foodSmellL + 1/math.magnitude(self.feelerL.x, self.feelerL.y, v.x, v.y)
+
+      if math.circlePoint(self.x, self.y, self.radius) then
+        --add health here
+        table.remove(foods, i)
+      end
     end
 
     local response = self.network:pass({[1]=self.foodSmell, [2]=self:health()})
@@ -72,13 +77,13 @@ function Agent:make(x, y)
     love.graphics.line(self.x, self.y, self.feelerL.x, self.feelerL.y)
 
     love.graphics.setColor(self.color.r, self.color.g, self.color.b)
-    love.graphics.circle("fill", self.x, self.y, 10)
+    love.graphics.circle("fill", self.x, self.y, self.radius)
 
     love.graphics.setColor(0, 0, 0)
-    love.graphics.circle("line", self.x, self.y, 10)
+    love.graphics.circle("line", self.x, self.y, self.radius)
 
     love.graphics.setColor(255, 0, 0)
-    love.graphics.rectangle("fill", self.x - 20, self.y - 15, self.food/2.5, 4)
+    love.graphics.rectangle("fill", self.x - 2*self.radius, self.y - 15, self.food/25*self.radius, 4)
   end
   return agent
 end
