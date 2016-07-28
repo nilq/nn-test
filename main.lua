@@ -56,7 +56,7 @@ function love.load()
     table.insert(foods, food)
   end
 
-  love.graphics.setBackgroundColor(220, 220, 220)
+  love.graphics.setBackgroundColor(255, 255, 255)
 end
 
 function love.update(dt)
