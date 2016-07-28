@@ -38,7 +38,7 @@ function Agent:make(x, y)
       self.foodSmell = self.foodSmell + 1/math.magnitude(self.x, self.y, v.x, v.y)
     end
 
-    local response = self.network:pass({[1]=foodSmell, [2]=agent:health()})
+    local response = self.network:pass({[1]=self.foodSmell, [2]=self:health()})
     local t1, t2 = response[1], response[2]
     local s = response[3]
 
