@@ -75,7 +75,7 @@ function love.update(dt)
 
   while #foods<targetFood do
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
-    local a = math.random(2, 10)
+    local a = math.random(5, 10)
     local food = {
       x = x, y = y,
       a = a,
