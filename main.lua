@@ -24,7 +24,7 @@ end
 
 function math.clamp(x, min, max)
   if x > max then return max end
-  if x < max then return min end
+  if x < min then return min end
   return x
 end
 
@@ -54,9 +54,20 @@ function love.load()
 
   local Agent = require "life/agent"
 
-  targetFood = 10
+  food_timer = 2
+  timer = 0
   agents = {}
   foods = {}
+
+  for n=1, 10 do
+    local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
+    local a = math.random(5, 10)
+    local food = {
+      x = x, y = y,
+      a = a,
+    }
+    table.insert(foods, food)
+  end
 
   for n = 1, 25 do
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
@@ -72,8 +83,9 @@ function love.update(dt)
   for i, v in ipairs(agents) do
     v:update(dt, foods)
   end
-
-  while #foods<targetFood do
+  timer = timer + dt
+  while food_timer<timer do
+    timer = timer - food_timer
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
     local a = math.random(5, 10)
     local food = {
