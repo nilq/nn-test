@@ -23,6 +23,14 @@ function Agent:make(x, y)
     self.color.g = math.random(0, 255)
     self.color.b = math.random(0, 255)
   end
+  function agent:mutate(min, max)
+    local Network = require "intelligence/network"
+    self.network = Network:mutate(min, max)
+
+    self.color.r = math.clamp(self.color.r + math.random(-10, 10), 0, 255)
+    self.color.g = math.clamp(self.color.g + math.random(-10, 10), 0, 255)
+    self.color.b = math.clamp(self.color.b + math.random(-10, 10), 0, 255)
+  end
   function agent:update(dt, foods)
 
     self.foodSmell = 0

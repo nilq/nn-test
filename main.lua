@@ -18,6 +18,11 @@ end
 function math.magnitude(x0, y0, x1, y1)
   return math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0))
 end
+function math.clamp(x, min, max)
+  if x > max then return max end
+  if x < max then return min end
+  return x
+end
 function table.copy_recursive(obj, seen)
   if type(obj) ~= "table" then
     return obj
