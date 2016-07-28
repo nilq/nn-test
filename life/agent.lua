@@ -6,10 +6,14 @@ function Agent:make(x, y)
     x = x, y = y,
     dx = 0, dy = 0,
     r = 0,
-    -- health
+    -- kinda unique
     food = 100,
     color = {},
   }
+  function agent:health()
+    -- plz fix stupid hard coded values
+    return math.abs(100 - self.food)
+  end
   function agent:randomize()
     local Network = require "intelligence/network"
     self.network = Network:make(2, 3)
