@@ -32,15 +32,22 @@ function Agent:make(x, y)
     self.color.g = math.clamp(self.color.g + math.random(-10, 10), 0, 255)
     self.color.b = math.clamp(self.color.b + math.random(-10, 10), 0, 255)
   end
+  function agent:make_baby()
+    local baby = table.copy_recursive(self)
+    baby:mutate()
+
+    tabel.insert(agents, baby)
+  end
   function agent:update(dt, foods)
-    self.feelerR = {x = self.x+math.cos(self.r + 0.5) * 30, y = self.y + math.sin(self.r + 0.5) * 30}
-    self.feelerL = {x = self.x+math.cos(self.r - 0.5) * 30, y = self.y + math.sin(self.r - 0.5) * 30}
+    self.feelerR = {x = self.x + math.cos(self.r + 0.5) * 30, y = self.y + math.sin(self.r + 0.5) * 30}
+    self.feelerL = {x = self.x + math.cos(self.r - 0.5) * 30, y = self.y + math.sin(self.r - 0.5) * 30}
 
     self.foodSmellR = 0
     self.foodSmellL = 0
+
     for i,v in ipairs(foods) do
-      self.foodSmellR = self.foodSmellR + 1/math.magnitude(self.feelerR.x, self.feelerR.y, v.x, v.y)
-      self.foodSmellL = self.foodSmellL + 1/math.magnitude(self.feelerL.x, self.feelerL.y, v.x, v.y)
+      self.foodSmellR = self.foodSmellR + 1 / math.magnitude(self.feelerR.x, self.feelerR.y, v.x, v.y)
+      self.foodSmellL = self.foodSmellL + 1 / math.magnitude(self.feelerL.x, self.feelerL.y, v.x, v.y)
 
       if math.circlePoint(self.x, self.y, self.radius, v.x, v.y) then
         self.food = self.food + v.a * 2
