@@ -48,27 +48,17 @@ function table.copy_recursive(obj, seen)
   return res
 end
 
+local Agent = require "life/agent"
 
 function love.load()
   math.randomseed(os.time())
 
-  local Agent = require "life/agent"
-
-  food_time  = 2
-  food_timer  = 0
+  agent_time = 10
+  agent_timer = 0
+  food_target = 12
 
   agents = {}
   foods = {}
-
-  for n = 1, 10 do
-    local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
-    local a = math.random(5, 10)
-    local food = {
-      x = x, y = y,
-      a = a,
-    }
-    table.insert(foods, food)
-  end
 
   for n = 1, 25 do
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
@@ -86,19 +76,24 @@ function love.update(dt)
     v:update(dt, foods)
   end
 
-  food_timer = food_timer + dt
+  agent_timer = agent_timer + dt
 
-  if food_time < food_timer then
-    food_timer = food_timer - food_time
+  if agent_time < agent_timer then
+    agent_timer = agent_timer - agent_time
+    local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
+    local agent = Agent:make(x, y)
 
+    agent:randomize()
+    table.insert(agents, agent)
+  end
+
+  while #foods<food_target do
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
     local a = math.random(5, 10)
-
     local food = {
       x = x, y = y,
       a = a,
     }
-
     table.insert(foods, food)
   end
 end
