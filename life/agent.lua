@@ -33,10 +33,13 @@ function Agent:make(x, y)
     self.color.b = math.clamp(self.color.b + math.random(-10, 10), 0, 255)
   end
   function agent:make_baby()
-    local baby = table.copy_recursive(self)
-    baby:mutate()
+    local baby = Agent:make(self.x, self.y)
+    baby.network = table.copy_recursive(self.network)
+    baby.color = table.copy_recursive(self.color)
 
-    tabel.insert(agents, baby)
+    baby.network:mutate(-5, 5)
+
+    table.insert(agents, baby)
   end
   function agent:update(dt, foods)
     self.feelerR = {x = self.x + math.cos(self.r + 0.5) * 30, y = self.y + math.sin(self.r + 0.5) * 30}
@@ -68,6 +71,10 @@ function Agent:make(x, y)
     self.y = self.y % love.graphics.getHeight()
 
     self.food = self.food - 2 * dt * s
+
+    if self.food >= 102 then
+      self:make_baby()
+    end
 
     if self:health() >= 100 then
       for i, v in ipairs(agents) do
