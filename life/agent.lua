@@ -72,8 +72,9 @@ function Agent:make(x, y)
 
     self.food = self.food - 2 * dt * s
 
-    if self.food >= 102 then
+    if self.food >= 175 then
       self:make_baby()
+      self.food = self.food - 100
     end
 
     if self:health() >= 100 then
