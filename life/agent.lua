@@ -42,7 +42,7 @@ function Agent:make(x, y)
       self.foodSmellL = self.foodSmellL + 1/math.magnitude(self.feelerL.x, self.feelerL.y, v.x, v.y)
     end
 
-    local response = self.network:pass({[1]=foodSmell, [2]=agent:health()})
+    local response = self.network:pass({[1]=self.foodSmell, [2]=self:health()})
     local t1, t2 = response[1], response[2]
     local s = response[3]
 
@@ -55,6 +55,14 @@ function Agent:make(x, y)
     self.y = self.y % love.graphics.getHeight()
 
     self.food = self.food - 2 * dt * s
+
+    if self:health() >= 100 then
+      for i, v in ipairs(agents) do
+        if v == self then
+          table.remove(agents, i)
+        end
+      end
+    end
   end
   function agent:draw()
     self.feelerR = {x = self.x+math.cos(self.r + 0.5) * 30, y = self.y + math.sin(self.r + 0.5) * 30}
