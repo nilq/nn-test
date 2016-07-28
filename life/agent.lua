@@ -32,10 +32,14 @@ function Agent:make(x, y)
     self.color.b = math.clamp(self.color.b + math.random(-10, 10), 0, 255)
   end
   function agent:update(dt, foods)
+    self.feelerR = {x = self.x+math.cos(self.r + 0.5) * 30, y = self.y + math.sin(self.r + 0.5) * 30}
+    self.feelerL = {x = self.x+math.cos(self.r - 0.5) * 30, y = self.y + math.sin(self.r - 0.5) * 30}
 
-    self.foodSmell = 0
+    self.foodSmellR = 0
+    self.foodSmellL = 0
     for i,v in ipairs(foods) do
-      self.foodSmell = self.foodSmell + 1/math.magnitude(self.x, self.y, v.x, v.y)
+      self.foodSmellR = self.foodSmellR + 1/math.magnitude(self.feelerR.x, self.feelerR.y, v.x, v.y)
+      self.foodSmellL = self.foodSmellL + 1/math.magnitude(self.feelerL.x, self.feelerL.y, v.x, v.y)
     end
 
     local response = self.network:pass({[1]=foodSmell, [2]=agent:health()})
@@ -53,9 +57,12 @@ function Agent:make(x, y)
     self.food = self.food - 2 * dt * s
   end
   function agent:draw()
+    self.feelerR = {x = self.x+math.cos(self.r + 0.5) * 30, y = self.y + math.sin(self.r + 0.5) * 30}
+    self.feelerL = {x = self.x+math.cos(self.r - 0.5) * 30, y = self.y + math.sin(self.r - 0.5) * 30}
+    
     love.graphics.setColor(0, 0, 0)
-    love.graphics.line(self.x, self.y, self.x+math.cos(self.r + 0.5) * 30, self.y + math.sin(self.r + 0.5) * 30)
-    love.graphics.line(self.x, self.y, self.x+math.cos(self.r - 0.5) * 30, self.y + math.sin(self.r - 0.5) * 30)
+    love.graphics.line(self.x, self.y, self.feelerR.x, self.feelerR.y)
+    love.graphics.line(self.x, self.y, self.feelerL.x, self.feelerL.y)
 
     love.graphics.setColor(self.color.r, self.color.g, self.color.b)
     love.graphics.circle("fill", self.x, self.y, 10)
