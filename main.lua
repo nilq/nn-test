@@ -1,6 +1,7 @@
 function math.sigmoid(n)
   return 1 / (1 + math.exp(-n))
 end
+
 function math.dotn(a, b) -- #a <=> #b
   local dot = 0
   for n = 1, #a do
@@ -8,6 +9,7 @@ function math.dotn(a, b) -- #a <=> #b
   end
   return dot
 end
+
 function math.sum(list)
   local sum = 0
   for n = 1, #list do
@@ -15,17 +17,21 @@ function math.sum(list)
   end
   return sum
 end
+
 function math.magnitude(x0, y0, x1, y1)
   return math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0))
 end
+
 function math.clamp(x, min, max)
   if x > max then return max end
   if x < max then return min end
   return x
 end
+
 function math.circlePoint (x0, y0, r, x1 ,y1)
   return r>math.magnitude(x0, y0, x1 ,y1)
 end
+
 function table.copy_recursive(obj, seen)
   if type(obj) ~= "table" then
     return obj
@@ -41,12 +47,16 @@ function table.copy_recursive(obj, seen)
   end
   return res
 end
+
+
 function love.load()
   math.randomseed(os.time())
 
   local Agent = require "life/agent"
 
+  targetFood = 10
   agents = {}
+  foods = {}
 
   for n = 1, 25 do
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
@@ -55,9 +65,15 @@ function love.load()
     table.insert(agents, agent)
   end
 
-  foods = {}
+  love.graphics.setBackgroundColor(255, 255, 255)
+end
 
-  for n = 1, 75 do
+function love.update(dt)
+  for i, v in ipairs(agents) do
+    v:update(dt, foods)
+  end
+
+  while #foods<targetFood do
     local x, y = math.random(0, love.graphics.getWidth()), math.random(0, love.graphics.getHeight())
     local a = math.random(2, 10)
     local food = {
@@ -65,14 +81,6 @@ function love.load()
       a = a,
     }
     table.insert(foods, food)
-  end
-
-  love.graphics.setBackgroundColor(255, 255, 255)
-end
-
-function love.update(dt)
-  for i, v in ipairs(agents) do
-    v:update(dt, foods)
   end
 end
 
