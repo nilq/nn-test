@@ -1,4 +1,4 @@
-# wildfire
+# nn-test
 Evolution applied to artificial life
 
 ---
